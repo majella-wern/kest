@@ -1,0 +1,232 @@
+*{
+    font-family: 'Quicksand', sans-serif;
+}
+.flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
+    align-items: center;      
+    padding: 5em;
+
+
+}
+.scenery{
+    width: 45em;
+}
+div{
+    text-align: center;
+}
+.flex p{
+    font-size: 1.2em;
+    padding: 1em;
+    color: #4A5573;
+}
+h2{
+    font-weight: 500;
+}
+.box{
+    margin: 1em;
+    box-shadow: 1px 1px 10px hsla(0, 0%, 0%, 0.161);
+    box-shadow: -1px -1px 10px hsla(0, 0%, 0%, 0.161);
+    border: 1px white solid;
+    background-color: white;
+    border-radius: 1em;
+    padding: 1em;
+    padding-bottom: 0.5em;
+}
+.things{
+    margin-top: 3em;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    padding-left:5em;
+    padding-right: 5em;
+}
+.things h3{
+    font-size: 1.5em;
+    font-weight: 500;
+    margin: 0.3em;
+}
+.things p{
+    font-size: 1.2em;
+    color: #4A5573;
+
+}
+.mountain{
+    color: #155DFC;
+    height: 4em;
+    width: 4em;
+    margin: 1em;
+}
+.trees{
+    color: #00A63E;
+    height: 4em;
+    width: 4em;
+    margin: 1em;
+}
+.sun{
+    color: #FFFF00;
+    height: 4em;
+    width: 4em;
+    margin: 1em;
+}
+.photo {
+    width: 85vw;
+}
+.photo img{
+    height: 15em;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 2em;
+}
+.desc {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 90vw; 
+    justify-content: center;
+    align-items: center;
+    
+}
+.desc p{
+    color: #4A5573;
+    font-weight: 500;
+}
+.games{
+     width: 70vw;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+
+}
+.games h3{
+    font-weight: 500;
+}
+.games p {
+    margin-top: 1.5em;
+    font-size: 1.2em;
+    width: 40em;
+}
+.vrox{
+    display: grid;
+    grid-template-columns: repeat(1,auto);
+    height: 35em;
+    width: 85vw;
+    margin-top: 3em;
+}
+.vox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      
+    height: 100%;
+    width: 100vw;        
+    background: linear-gradient(to bottom,#F2FAFF 0%, #FFFFFF 100%);
+}
+.container {
+  display: grid;
+  grid-template:
+    "a b b" 1fr     
+    "a c c" 1fr      
+    / 1fr 4fr 5fr;  
+  gap: 0em;
+  height: 7em;       
+  margin: 1em;
+  width: 45em;
+  text-align: left;
+  transition: background-color 0.3s ease;
+  background-color: #F9FAFB;
+  border-radius: 1em;
+  padding: 1.5em;  
+  margin-left: 2em;
+  
+}
+.container p{
+    font-size: 1.1em;
+}
+.container:hover{
+    background-color: #F3F4F6;
+}
+.a { grid-area: a; }
+.b { grid-area: b; }
+.c { grid-area: c; }
+.Gamepad2{
+    color: #9810FA;
+    grid-area: a;
+    height: 3em;
+    width: 3em;
+    margin-right: 1em;
+}
+.BookOpenText{
+    color: #155DFC;
+    grid-area: a;
+    height: 3em;
+    width: 3em;
+    margin-right: 1em;
+}
+.Compass{
+    color: #F54900;
+    grid-area: a;
+    height: 3em;
+    width: 3em;
+    margin-right: 1em;
+}
+.Heart{
+    color: #E7000B;
+    grid-area: a;
+    height: 3em;
+    width: 3em;
+    margin-right: 1em;
+}
+.twoimg{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+.twoimg img{
+    width: 31vw;
+    height: 20em;
+    object-fit: cover;
+    border-radius: 2em;
+    margin: 2em;
+    margin-top: 0em;
+    margin-bottom: 0em  ;
+}
+.kids{
+    object-position: 50% 80%;
+}
+
+@media (min-width: 1000px) {
+    .box {
+        margin: 1em;  
+    }
+    .things {
+        flex-direction: row;
+        justify-content: center;
+        gap: 2em;
+        padding-left:10em;
+        padding-right:10em;
+    }
+    .photo {
+    width: 65vw;
+    }
+    .photo img{
+    height: 20em;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 2em;
+    }
+    .vrox{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    height: 50em;
+    width: 85vw;
+    margin-top: 3em;
+    padding-left: 10em;
+    padding-right: 10em;
+}
+    .container{
+        width: 36em;
+    }
+}

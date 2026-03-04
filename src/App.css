@@ -1,0 +1,19 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;  /* Prevent horizontal scroll */
+}
+
+.app-container {
+  min-height: 100vh;  /* Full height page */
+}
+
+.title-card {
+  height: 100vh;       /* FULL SCREEN HEIGHT */
+  width: 100vw;        /* FULL WIDTH */
+  position: relative;  /* For absolute positioning inside */
+  overflow: hidden;    /* Keep content inside */
+}
+
+/* Your existing .flower styles go inside TitleCard */
