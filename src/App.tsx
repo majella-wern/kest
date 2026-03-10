@@ -1,5 +1,5 @@
-import TitleCard from "./TitleCard";
-import Description from './description';
+import TitleCard from "./titleCard";
+import Description from './bitch';
 import Booking from "./booking";
 
 
@@ -9,7 +9,7 @@ export default function App() {
     <TitleCard/>
     <Description/>
     <Booking/>
-    </>
+    </> 
   );
 }
 

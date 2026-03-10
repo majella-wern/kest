@@ -9,7 +9,7 @@ function Description() {
 
     return(
         <>
-        <div className='vox'>
+        <div className='vox' id='vox'>
         <div className='flex'>
             <div className='scenery'>
         <h2>Breathtaking Scenery</h2>
