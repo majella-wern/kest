@@ -1,4 +1,4 @@
-import TitleCard from "./titleCard";
+import TitleCard from "./gay";
 import Description from './bitch';
 import Booking from "./booking";
 
