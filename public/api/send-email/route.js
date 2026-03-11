@@ -6,19 +6,23 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request) {
   try {
     const { email, message } = await request.json();
-    await resend.emails.send({
-      from: 'test@resend.dev',
-      to: [email],
-      subject: 'Booking Confirmation',
-      html: `<h2>Booking Request</h2><p>Email: ${email}</p><p>${message}</p>`
+    
+    // Log to Vercel dashboard
+    console.log('📧 Form received:', { email, message });
+    
+    // Return immediately (test without Resend first)
+    return new Response(JSON.stringify({ 
+      success: true, 
+      message: 'Form works!' 
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
     });
-    return Response.json({ success: true });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('API Error:', error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
-}
-
-// ADD THIS - handles browser visits
-export async function GET() {
-  return Response.json({ message: 'POST only endpoint' }, { status: 405 });
 }
