@@ -7,7 +7,7 @@ export async function POST(request) {
     const { email, message } = await request.json();
     
     await resend.emails.send({
-      from: 'Booking System <noreply@yourdomain.com>',  // Update with your verified domain
+      from: 'test@resend.dev',  // Update with your verified domain
       to: [email],
       subject: 'Booking Confirmation - Kest',
       html: `
