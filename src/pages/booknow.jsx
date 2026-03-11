@@ -29,7 +29,8 @@ export default function BookNow() {
         setStatus(`❌ Error: ${data.error || 'Failed to send'}`);
       }
     } catch (error) {
-      setStatus('❌ Network error. Please try again.');
+      // show specific error messages (JSON parse errors, network failures, etc.)
+      setStatus(`❌ ${error.message}`);
     } finally {
       setLoading(false);
     }

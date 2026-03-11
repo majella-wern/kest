@@ -2,12 +2,20 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(request) {
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   try {
-    const { email, message } = await request.json();
-    
+    const { email, message } = req.body;
+
+    if (!email || !message) {
+      return res.status(400).json({ error: 'Email and message are required' });
+    }
+
     await resend.emails.send({
-      from: 'test@resend.dev',  // Update with your verified domain
+      from: 'test@resend.dev',
       to: [email],
       subject: 'Booking Confirmation - Kest',
       html: `
@@ -19,11 +27,13 @@ export async function POST(request) {
         <p>We will contact you shortly to confirm.</p>
         <hr>
         <small>Automated message from Kest Booking System</small>
-      `
+      `,
+      reply_to: email
     });
-    
-    return Response.json({ success: true, message: 'Email sent!' });
+
+    return res.status(200).json({ success: true, message: 'Email sent!' });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('send-email error:', error);
+    return res.status(500).json({ error: error.message });
   }
 }
