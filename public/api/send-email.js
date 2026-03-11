@@ -5,38 +5,25 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request) {
   try {
     const { email, message } = await request.json();
-
-    // Validate input
-    if (!email || !message) {
-      return new Response(JSON.stringify({ error: 'Email and message are required' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-
-    // Send email to your business email (change this to your actual email)
+    
     await resend.emails.send({
-      from: 'Majella Travel <noreply@majella-travel.com>', // Use a verified domain
-      to: ['info@majella-travel.com'], // Your business email to receive bookings
-      subject: 'New Booking Request',
+      from: 'Booking System <noreply@yourdomain.com>',  // Update with your verified domain
+      to: [email],
+      subject: 'Booking Confirmation - Kest',
       html: `
-        <h2>New Booking Request</h2>
-        <p><strong>Customer Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-      `,
-      reply_to: email // Allow replying directly to customer
+        <h2>🎉 Booking Request Received!</h2>
+        <p>Thank you for your booking interest!</p>
+        <h3>Details:</h3>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Request:</strong> ${message}</p>
+        <p>We will contact you shortly to confirm.</p>
+        <hr>
+        <small>Automated message from Kest Booking System</small>
+      `
     });
-
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    
+    return Response.json({ success: true, message: 'Email sent!' });
   } catch (error) {
-    console.error('Email sending error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to send email' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return Response.json({ error: error.message }, { status: 500 });
   }
 }
