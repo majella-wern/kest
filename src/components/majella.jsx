@@ -1,4 +1,4 @@
-import './titleCard.css'
+import './majella.css'
 import { Bird } from 'lucide-react';
 
 function TitleCard(){

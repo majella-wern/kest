@@ -1,5 +1,5 @@
 import { Mountain, Trees, Sun } from 'lucide-react';
-import './Description.css'
+import './explanation.css'
 import majellaImage from '../assets/photo-1609479425550-c90c41b91f0c.jpg';
 import { Bike, Gamepad2, Compass, Heart, BookOpen} from "lucide-react";
 import one from '../assets/e.jpg';
