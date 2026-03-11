@@ -8,33 +8,50 @@ export default function BookNow() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setStatus('');
+  e.preventDefault();
+  setLoading(true);
+  setStatus('');
 
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, message }),
-      });
+  try {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, message }),
+    });
 
-      const data = await response.json();
-      
-      if (response.ok) {
-        setStatus('✅ Email sent successfully!');
-        setEmail('');
-        setMessage('');
-      } else {
-        setStatus(`❌ Error: ${data.error || 'Failed to send'}`);
-      }
-    } catch (error) {
-      // show specific error messages (JSON parse errors, network failures, etc.)
-      setStatus(`❌ ${error.message}`);
-    } finally {
-      setLoading(false);
+    // Check if response is OK first
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
     }
-  };
+
+    // Check if body has content BEFORE parsing
+    const responseText = await response.text();
+    console.log('Raw response:', responseText); // Check browser console
+    
+    if (!responseText) {
+      setStatus('✅ Form submitted successfully!');
+      setEmail('');
+      setMessage('');
+      return;
+    }
+
+    const data = JSON.parse(responseText);
+    
+    if (data.success) {
+      setStatus('✅ Email sent successfully!');
+      setEmail('');
+      setMessage('');
+    } else {
+      setStatus(`❌ ${data.error || 'Unknown error'}`);
+    }
+  } catch (error) {
+    console.error('Full error:', error);
+    setStatus(`❌ ${error.message}`);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
