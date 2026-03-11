@@ -1,13 +1,7 @@
-import './TitleCard.css'
+import './titleCard.css'
 import { Bird } from 'lucide-react';
-import photo from './assets/photo-1732239613951-0f10063b4589.jpg';  
 
 function TitleCard(){
-    var x = 0
-function click(){
-    x += 1
-    console.log(x)
-}
     return (
         <>
             <div className='flower'>

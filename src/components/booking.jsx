@@ -9,7 +9,7 @@ function booking() {
             </div>
             <h3>Book your family getaway to Majella today and watch the magic happen!</h3>
             <div className="bookingbtns">
-                <button className="btn-or">Book Now</button>
+                <button className="btn-or"><a href="/kest/book">Book Now</a></button>
             </div>
             <div className="phoneNmail">
                 <span>
