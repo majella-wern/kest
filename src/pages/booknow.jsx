@@ -17,12 +17,14 @@ export default function BookNow() {
         body: JSON.stringify({ email, message }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         setStatus('Email sent successfully!');
         setEmail('');
         setMessage('');
       } else {
-        setStatus('Failed to send email');
+        setStatus(data.error || 'Failed to send email');
       }
     } catch (error) {
       setStatus('Error sending email');
