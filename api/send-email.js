@@ -8,7 +8,7 @@ export async function POST(request) {
     const { email, message } = await request.json();
     
     await resend.emails.send({
-      from: 'This Year\'s Play <noreply@yourdomain.com>',  // Change later
+      from: 'majellawern@gmail.com',  // Change later
       to: 'your-email@gmail.com',  // YOUR EMAIL HERE
       subject: `New message from ${name}`,
       text: `New Play Inquiry
