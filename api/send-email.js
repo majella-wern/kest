@@ -10,10 +10,9 @@ export async function POST(request) {
     await resend.emails.send({
       from: 'majellawern@gmail.com',  // Change later
       to: 'your-email@gmail.com',  // YOUR EMAIL HERE
-      subject: `New message from ${name}`,
+      subject: `New message from `,
       text: `New Play Inquiry
 
-        Name: ${name}
         Email: ${email}
         Message: ${message}`,
     });
