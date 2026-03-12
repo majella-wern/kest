@@ -7,6 +7,17 @@ export async function POST(request) {
   try {
     const { email, message } = await request.json();
     
+    await resend.emails.send({
+      from: 'This Year\'s Play <noreply@yourdomain.com>',  // Change later
+      to: 'your-email@gmail.com',  // YOUR EMAIL HERE
+      subject: `New message from ${name}`,
+      text: `New Play Inquiry
+
+        Name: ${name}
+        Email: ${email}
+        Message: ${message}`,
+    });
+
     // Log to Vercel dashboard
     console.log('📧 Form received:', { email, message });
     
