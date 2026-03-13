@@ -21,7 +21,7 @@ const PUBLIC_KEY = 'user_2Vx08v786tnG_tQQ5';
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY);
       setStatus('Booking confirmed! 🎉');
     } catch (error) {
-      setStatus(error);
+      setStatus("Booking failed. Please try again.");
       console.error('EmailJS error:', error);
     }
   };
