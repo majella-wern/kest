@@ -11,7 +11,7 @@ export default function BookNow() {
   // ← REPLACE THESE 3 KEYS FROM emailjs.com dashboard
   const SERVICE_ID = 'service_705pzha';
 const TEMPLATE_ID = 'template_te6f7au';
-const PUBLIC_KEY = 'user_2Vx08v786tnG_tQQ5';
+const PUBLIC_KEY = '2Vx08v786tnG_tQQ5';
 
   const sendEmail = async (e) => {
     e.preventDefault();
