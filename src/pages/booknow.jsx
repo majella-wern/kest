@@ -1,106 +1,134 @@
-import { useState } from 'react';
-import './booknow.css';
+// src/pages/BookNow.jsx
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
 
 export default function BookNow() {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const form = useRef();
   const [status, setStatus] = useState('');
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setStatus('');
+  // ← REPLACE THESE 3 KEYS FROM emailjs.com dashboard
+  const SERVICE_ID = 'service_705pzha';
+const TEMPLATE_ID = 'template_te6f7au';
+const PUBLIC_KEY = 'user_2Vx08v786tnG_tQQ5';
 
-  try {
-    const response = await fetch('/api/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, message }),
-    });
+  const sendEmail = async (e) => {
+    e.preventDefault();
+    setStatus('Booking...');
 
-    // Check if response is OK first
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+    try {
+      await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY);
+      setStatus('Booking confirmed! 🎉');
+      setTimeout(() => navigate('/'), 2500); // Redirect home
+    } catch (error) {
+      setStatus('Booking failed. Try again.');
+      console.error('EmailJS error:', error);
     }
-
-    // Check if body has content BEFORE parsing
-    const responseText = await response.text();
-    console.log('Raw response:', responseText); // Check browser console
-    
-    if (!responseText) {
-      setStatus('✅ Form submitted successfully!');
-      setEmail('');
-      setMessage('');
-      return;
-    }
-
-    const data = JSON.parse(responseText);
-    
-    if (data.success) {
-      setStatus('✅ Email sent successfully!');
-      setEmail('');
-      setMessage('');
-    } else {
-      setStatus(`❌ ${data.error || 'Unknown error'}`);
-    }
-  } catch (error) {
-    console.error('Full error:', error);
-    setStatus(`❌ ${error.message}`);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-md mx-auto bg-white rounded-2xl shadow-xl p-8">
-        <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">Book Now</h1>
-        
-        <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 py-12">
+      <div className="max-w-lg mx-auto p-8 bg-white rounded-2xl shadow-2xl">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
+            Book Now
+          </h1>
+          <p className="text-gray-600">Secure your seats for This Year's Play</p>
+        </div>
+
+        <form ref={form} onSubmit={sendEmail} className="space-y-6">
+          {/* Name */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-700">Email Address</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+            <label className="block text-sm font-semibold mb-2 text-gray-700">Full Name</label>
+            <input 
+              type="text" 
+              name="user_name" 
               required
-              className="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-              placeholder="your@email.com"
+              className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-400 transition-all"
+              placeholder="John Doe"
             />
           </div>
-          
+
+          {/* Email */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-700">Booking Details</label>
-            <textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+            <label className="block text-sm font-semibold mb-2 text-gray-700">Email</label>
+            <input 
+              type="email" 
+              name="user_email" 
               required
-              rows="5"
-              className="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-vertical"
-              placeholder="Event date, number of people, special requests..."
+              className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-400 transition-all"
+              placeholder="john@example.com"
             />
           </div>
-          
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg"
+
+          {/* Phone */}
+          <div>
+            <label className="block text-sm font-semibold mb-2 text-gray-700">Phone</label>
+            <input 
+              type="tel" 
+              name="phone" 
+              required
+              className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-400 transition-all"
+              placeholder="+63 912 345 6789"
+            />
+          </div>
+
+          {/* Show Date */}
+          <div>
+            <label className="block text-sm font-semibold mb-2 text-gray-700">Preferred Show Date</label>
+            <select name="show_date" required className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-400">
+              <option value="">Select date</option>
+              <option value="March 20, 2026">March 20, 2026 - 7PM</option>
+              <option value="March 21, 2026">March 21, 2026 - 2PM</option>
+              <option value="March 22, 2026">March 22, 2026 - 7PM</option>
+            </select>
+          </div>
+
+          {/* Tickets */}
+          <div>
+            <label className="block text-sm font-semibold mb-2 text-gray-700">Number of Tickets</label>
+            <select name="tickets" required className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-400">
+              <option value="">Select quantity</option>
+              <option value="1">1 Ticket - ₱1,500</option>
+              <option value="2">2 Tickets - ₱2,800</option>
+              <option value="4">4 Tickets - ₱5,400</option>
+            </select>
+          </div>
+
+          {/* Message */}
+          <div>
+            <label className="block text-sm font-semibold mb-2 text-gray-700">Special Requests</label>
+            <textarea 
+              name="message" 
+              rows="4"
+              className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-200 focus:border-purple-400 resize-vertical"
+              placeholder="Seating preferences, accessibility needs, etc."
+            />
+          </div>
+
+          <button 
+            type="submit" 
+            disabled={status === 'Booking...'}
+            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-6 px-8 rounded-2xl font-bold text-lg shadow-xl hover:from-purple-700 hover:to-blue-700 transform hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'Sending...' : 'Send Booking Request'}
+            {status === 'Booking...' ? '🎭 Securing Seats...' : '🎭 BOOK NOW & PAY LATER'}
           </button>
+
+          {status && (
+            <div className={`p-4 rounded-xl text-center font-semibold ${
+              status.includes('confirmed') 
+                ? 'bg-green-100 border-2 border-green-300 text-green-800' 
+                : 'bg-red-100 border-2 border-red-300 text-red-800'
+            }`}>
+              {status}
+            </div>
+          )}
         </form>
 
-        {status && (
-          <div className={`mt-6 p-4 rounded-xl text-center font-medium ${
-            status.includes('✅')
-              ? 'bg-green-100 text-green-800 border border-green-200'
-              : 'bg-red-100 text-red-800 border border-red-200'
-          }`}>
-            {status}
-          </div>
-        )}
+        <p className="text-xs text-gray-500 text-center mt-6">
+          Secure booking • No payment now • Confirm via email
+        </p>
       </div>
     </div>
   );
