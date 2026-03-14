@@ -1,4 +1,3 @@
-// src/pages/BookNow.jsx
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
@@ -8,7 +7,6 @@ export default function BookNow() {
   const [status, setStatus] = useState('');
   const navigate = useNavigate();
 
-  // ← REPLACE THESE 3 KEYS FROM emailjs.com dashboard
   const SERVICE_ID = 'service_705pzha';
 const TEMPLATE_ID = 'template_te6f7au';
 const PUBLIC_KEY = '2Vx08v786tnG_tQQ5';

@@ -21,14 +21,17 @@
     margin: 1em;
 }
 .phoneNmail{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    place-items: center;
     justify-content: center;
-    width: 90%;
-    height: 100%;
+    width: 40%;
+    height: auto;
     margin: 0em;
 }
 .phoneNmail span{
     margin: 1em;
+    align-items: center;
 }
 .btn-or{
     background-color: white;
@@ -39,4 +42,19 @@
 .btn-or a{
     text-decoration: none;
     color: #FF6100;
+}
+.phone, .mail{
+    display: flex;
+    flex-direction: row;
+    width: auto; 
+}
+.phone p,.mail p{
+    width: auto;
+}
+.email, .call{
+    height: 1.5em;
+    width: 1.5em;
+    margin: 1em;
+    margin-top: 0em;
+    margin-bottom: 0em;
 }

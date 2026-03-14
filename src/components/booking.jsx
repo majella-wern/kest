@@ -12,14 +12,14 @@ function booking() {
                 <button className="btn-or"><a href="/kest/book">Book Now</a></button>
             </div>
             <div className="phoneNmail">
-                <span>
-                    <Mail/>
+                <span className="mail">
+                    <Mail className="email"/>
                     <p>
                     info@majella-travel.com
                     </p>
                 </span>
-                <span>
-                    <Phone/>
+                <span className="phone">
+                    <Phone className="call"/>
                     <p>
                         +353 6767676767
                     </p>
